@@ -50,8 +50,6 @@ local function onCharacterAdded(char)
     end)
 end
 
--- ⏳ Chờ 10 giây sau khi bật script rồi mới hoạt động
-task.wait()
 
 if LocalPlayer.Character then
     onCharacterAdded(LocalPlayer.Character)
