@@ -1,60 +1,58 @@
-task.wait(15)
--- Tự động load FastMax trước rồi chạy script phía sau
-pcall(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/AnhDzaiScript/Setting/refs/heads/main/FastMax.lua"))()
-end)
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 
--- Hàm tạo aura xanh ngọc
-local function createAquaAura(char)
-    if not char then return end
-    if char:FindFirstChild("AquaAura") then
-        char.AquaAura:Destroy()
+task.delay(15, function() -- ⏳ Chờ 10 giây mới bật script này
+
+    -- Hàm tạo aura xanh ngọc
+    local function createAquaAura(char)
+        if not char then return end
+        if char:FindFirstChild("AquaAura") then
+            char.AquaAura:Destroy()
+        end
+
+        local aura = Instance.new("Highlight")
+        aura.Name = "AquaAura"
+        aura.FillColor = Color3.fromRGB(64, 224, 208)   -- xanh ngọc
+        aura.OutlineColor = Color3.fromRGB(64, 224, 208)
+        aura.FillTransparency = 1 -- mặc định ẩn
+        aura.OutlineTransparency = 1
+        aura.Parent = char
     end
 
-    local aura = Instance.new("Highlight")
-    aura.Name = "AquaAura"
-    aura.FillColor = Color3.fromRGB(64, 224, 208)   -- xanh ngọc
-    aura.OutlineColor = Color3.fromRGB(64, 224, 208)
-    aura.FillTransparency = 1 -- mặc định ẩn
-    aura.OutlineTransparency = 1
-    aura.Parent = char
-end
+    -- Respawn thì tạo aura
+    local function onCharacterAdded(char)
+        char:WaitForChild("HumanoidRootPart")
+        task.wait(1)
+        createAquaAura(char)
 
--- Respawn thì tạo aura
-local function onCharacterAdded(char)
-    char:WaitForChild("HumanoidRootPart")
-    task.wait(1)
-    createAquaAura(char)
+        local humanoid = char:WaitForChild("Humanoid")
+        local aura = char:FindFirstChild("AquaAura")
 
-    local humanoid = char:WaitForChild("Humanoid")
-    local aura = char:FindFirstChild("AquaAura")
+        local floatTime = 0
+        RunService.RenderStepped:Connect(function(dt)
+            if not humanoid or not aura then return end
 
-    local floatTime = 0
-    RunService.RenderStepped:Connect(function(dt)
-        if not humanoid or not aura then return end
-
-        if humanoid.FloorMaterial == Enum.Material.Air then
-            floatTime += dt
-            if floatTime >= 3 then
-                aura.FillTransparency = 0.3
-                aura.OutlineTransparency = 0
+            if humanoid.FloorMaterial == Enum.Material.Air then
+                floatTime += dt
+                if floatTime >= 3 then
+                    aura.FillTransparency = 0.3
+                    aura.OutlineTransparency = 0
+                end
+            else
+                floatTime = 0
+                aura.FillTransparency = 1
+                aura.OutlineTransparency = 1
             end
-        else
-            floatTime = 0
-            aura.FillTransparency = 1
-            aura.OutlineTransparency = 1
-        end
-    end)
-end
+        end)
+    end
 
+    if LocalPlayer.Character then
+        onCharacterAdded(LocalPlayer.Character)
+    end
+    LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
 
-if LocalPlayer.Character then
-    onCharacterAdded(LocalPlayer.Character)
-end
-LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+end)
 local plr = game:GetService("Players").LocalPlayer
 local Notification = require(game:GetService("ReplicatedStorage").Notification)
 
