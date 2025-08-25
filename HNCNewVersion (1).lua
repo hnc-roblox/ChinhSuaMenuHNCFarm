@@ -1,6 +1,3 @@
-pcall(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/AnhDzaiScript/Setting/refs/heads/main/FastMax.lua"))()
-end)
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
@@ -55,6 +52,9 @@ task.delay(15, function() -- ⏳ Chờ 10 giây mới bật script này
     end
     LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
 
+end)
+pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/AnhDzaiScript/Setting/refs/heads/main/FastMax.lua"))()
 end)
 local plr = game:GetService("Players").LocalPlayer
 local Notification = require(game:GetService("ReplicatedStorage").Notification)
