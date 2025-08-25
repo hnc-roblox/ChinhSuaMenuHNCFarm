@@ -1,3 +1,4 @@
+task.wait(15)
 -- Tự động load FastMax trước rồi chạy script phía sau
 pcall(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/AnhDzaiScript/Setting/refs/heads/main/FastMax.lua"))()
@@ -50,7 +51,7 @@ local function onCharacterAdded(char)
 end
 
 -- ⏳ Chờ 10 giây sau khi bật script rồi mới hoạt động
-task.wait(10)
+task.wait()
 
 if LocalPlayer.Character then
     onCharacterAdded(LocalPlayer.Character)
