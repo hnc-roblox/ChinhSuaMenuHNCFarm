@@ -1,3 +1,8 @@
+-- Tự động load FastMax trước rồi chạy script phía sau
+pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/AnhDzaiScript/Setting/refs/heads/main/FastMax.lua"))()
+end)
+
 local plr = game:GetService("Players").LocalPlayer
 local Notification = require(game:GetService("ReplicatedStorage").Notification)
 
