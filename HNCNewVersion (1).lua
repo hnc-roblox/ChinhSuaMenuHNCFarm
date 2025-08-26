@@ -1,3 +1,4 @@
+-- Skibidi
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
@@ -1136,7 +1137,7 @@ if game.PlaceId == 2753915549 then
                 NameMon = "Serpent Hunter"
                 CFrameQuest = CFrame.new(-16665.1914, 104.596405, 1579.69434, 0.951068401, -0, -0.308980465, 0, 1, -0, 0.308980465, 0, 0.951068401)
                 CFrameMon = CFrame.new(-16521.0625, 106.09285, 1488.78467, 0.469467044, 0, 0.882950008, 0, 1, 0, -0.882950008, 0, 0.469467044)
-               elseif MyLevel >= 2575 or SelectMonster == "Skull Slayer" then
+               elseif (MyLevel >= 2575 and MyLevel <= 2599) or SelectMonster == "Skull Slayer" then
                 Mon = "Skull Slayer"
                 LevelQuest = 2
                 NameQuest = "TikiQuest3"
