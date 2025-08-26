@@ -3,7 +3,7 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 
-task.delay(15, function() -- ⏳ Chờ 10 giây mới bật script này
+task.delay(25, function() -- ⏳ Chờ 10 giây mới bật script này
 
     -- Hàm tạo aura xanh ngọc
     local function createAquaAura(char)
@@ -61,13 +61,19 @@ local plr = game:GetService("Players").LocalPlayer
 local Notification = require(game:GetService("ReplicatedStorage").Notification)
 
 -- Thông báo chào mừng
-Notification.new("<Color=Yellow><Thông báo của quản trị viên><Color=/>"):Display()
-task.wait(2)
-Notification.new("<Color=Red>Chào mừng đến với HNC Hub!<Color=/>"):Display()
+Notification.new("<Color=Yellow>Mùng Hai Tháng Chín rợp cờ,<Color=/>"):Display()
 task.wait(1)
-Notification.new("<Color=Cyan>Chúc bạn có một trải nghiệm vui vẻ!<Color=/>"):Display()
-task.wait(5)
-Notification.new("<Color=Cyan>Loading...<Color=/>"):Display()
+Notification.new("<Color=Yellow>Non sông gấm vóc đợi chờ vươn xa.<Color=/>"):Display()
+task.wait(1)
+Notification.new("<Color=Yellow>Máu hồng bao thuở ông cha,<Color=/>"):Display()
+task.wait(1)
+Notification.new("<Color=Yellow>Cho nay đất Việt ngọc ngà sáng tươi.<Color=/>"):Display()
+task.wait(1)
+Notification.new("<Color=Yellow><Chúc Mừng Ngày Quốc Khánh><Color=/>"):Display()
+task.wait(1)
+Notification.new("<Color=Yellow>Mùng 2 Tháng 9<Color=/>"):Display()
+task.wait(1)
+Notification.new("<Color=Yellow>HNC Roblox<Color=/>"):Display()
 task.wait(5)
 -- Anh em đổi thông báo ở trên nha vd: Notification.new("<Color=White>đổi thông báo chỗ này nè!<Color=/>"):Display()
 -- LocalScript (đặt trong StarterPlayerScripts)
