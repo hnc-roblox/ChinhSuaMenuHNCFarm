@@ -1,3 +1,77 @@
+-- ESP Mobs - Green Circle (5000 studs, small circle)
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Camera = workspace.CurrentCamera
+local LocalPlayer = Players.LocalPlayer
+
+-- lưu ESP
+local mobESP = {}
+local MAX_DISTANCE = 5000 -- 👈 chỉ quét quái trong phạm vi 5000 stud
+
+-- tạo circle
+local function createCircle()
+    local circle = Drawing.new("Circle")
+    circle.Color = Color3.fromRGB(0, 255, 0) -- xanh lá
+    circle.Thickness = 2
+    circle.NumSides = 50
+    circle.Filled = false
+    circle.Radius = 1.2 -- 👈 nhỏ gấp 10 lần (so với 12)
+    circle.Visible = true
+    return circle
+end
+
+-- tạo esp cho mob
+local function addESP(mob)
+    if mobESP[mob] then return end
+    local circle = createCircle()
+    mobESP[mob] = circle
+
+    mob.AncestryChanged:Connect(function(_, parent)
+        if not parent then
+            if mobESP[mob] then
+                mobESP[mob]:Remove()
+                mobESP[mob] = nil
+            end
+        end
+    end)
+end
+
+-- update vòng tròn theo vị trí
+RunService.RenderStepped:Connect(function()
+    local char = LocalPlayer.Character
+    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+    if not hrp then return end
+
+    for mob, circle in pairs(mobESP) do
+        if mob and mob:FindFirstChild("HumanoidRootPart") and mob:FindFirstChildOfClass("Humanoid") and mob.Humanoid.Health > 0 then
+            local distance = (mob.HumanoidRootPart.Position - hrp.Position).Magnitude
+            if distance <= MAX_DISTANCE then
+                local pos, onScreen = Camera:WorldToViewportPoint(mob.HumanoidRootPart.Position)
+                if onScreen then
+                    circle.Position = Vector2.new(pos.X, pos.Y)
+                    circle.Visible = true
+                else
+                    circle.Visible = false
+                end
+            else
+                circle.Visible = false
+            end
+        else
+            circle.Visible = false
+        end
+    end
+end)
+
+-- theo dõi workspace.Enemies
+for _, mob in ipairs(workspace.Enemies:GetChildren()) do
+    addESP(mob)
+end
+workspace.Enemies.ChildAdded:Connect(function(mob)
+    task.wait(0.2)
+    addESP(mob)
+end)
+
 -- Skibidi
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
